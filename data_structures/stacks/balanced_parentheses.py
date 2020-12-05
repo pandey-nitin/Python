@@ -1,4 +1,4 @@
-from .stack import Stack
+from stack import Stack
 
 
 def balanced_parentheses(parentheses: str) -> bool:
@@ -20,9 +20,9 @@ def balanced_parentheses(parentheses: str) -> bool:
         if bracket in bracket_pairs:
             stack.push(bracket)
         elif bracket in (")", "]", "}"):
-            if stack.is_empty() or bracket_pairs[stack.pop()] != bracket:
+            if stack.is_empty() or stack.pop() != bracket:
                 return False
-    return stack.is_empty()
+    return True
 
 
 if __name__ == "__main__":
