@@ -17,7 +17,7 @@ class TreeNode:
 
 def build_tree():
     print("\n********Press N to stop entering at any point of time********\n")
-    check = input("Enter the value of the root node: ").strip().lower() or "n"
+    check = input("Enter the value of the root node: ").strip() or "n"
     if check == "n":
         return None
     q: queue.Queue = queue.Queue()
@@ -26,14 +26,14 @@ def build_tree():
     while not q.empty():
         node_found = q.get()
         msg = "Enter the left node of %s: " % node_found.data
-        check = input(msg).strip().lower() or "n"
+        check = input(msg).strip() or "n"
         if check == "n":
             return tree_node
         left_node = TreeNode(int(check))
         node_found.left = left_node
         q.put(left_node)
         msg = "Enter the right node of %s: " % node_found.data
-        check = input(msg).strip().lower() or "n"
+        check = input(msg).strip() or "n"
         if check == "n":
             return tree_node
         right_node = TreeNode(int(check))
@@ -58,7 +58,6 @@ def pre_order(node: TreeNode) -> None:
     """
     if not isinstance(node, TreeNode) or not node:
         return
-    print(node.data, end=",")
     pre_order(node.left)
     pre_order(node.right)
 
@@ -81,7 +80,6 @@ def in_order(node: TreeNode) -> None:
     if not isinstance(node, TreeNode) or not node:
         return
     in_order(node.left)
-    print(node.data, end=",")
     in_order(node.right)
 
 
@@ -104,7 +102,6 @@ def post_order(node: TreeNode) -> None:
         return
     post_order(node.left)
     post_order(node.right)
-    print(node.data, end=",")
 
 
 def level_order(node: TreeNode) -> None:
@@ -130,9 +127,9 @@ def level_order(node: TreeNode) -> None:
         node_dequeued = q.get()
         print(node_dequeued.data, end=",")
         if node_dequeued.left:
-            q.put(node_dequeued.left)
-        if node_dequeued.right:
             q.put(node_dequeued.right)
+        if node_dequeued.right:
+            q.put(node_dequeued.left)
 
 
 def level_order_actual(node: TreeNode) -> None:
@@ -155,7 +152,6 @@ def level_order_actual(node: TreeNode) -> None:
     if not isinstance(node, TreeNode) or not node:
         return
     q: queue.Queue = queue.Queue()
-    q.put(node)
     while not q.empty():
         list = []
         while not q.empty():
